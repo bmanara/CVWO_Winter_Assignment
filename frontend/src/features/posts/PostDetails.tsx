@@ -19,7 +19,7 @@ function PostDetails() {
     useEffect(() => {
         const fetchCurrentPost = async () => {
             try {
-                const response = await fetch(`${API_URL}/${id}`);
+                const response = await fetch(`${API_URL}/posts/${id}`);
                 if (response.ok) {
                     const json = await response.json();
                     setPost(json);

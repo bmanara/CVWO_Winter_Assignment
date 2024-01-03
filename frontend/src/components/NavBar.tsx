@@ -6,7 +6,7 @@ function NavBar() {
         <nav>
             <Link to="/">All Forums</Link>
             {" | "}
-            <Link to="/new">New Post</Link>
+            <Link to="/posts/new">New Post</Link>
         </nav>
     )
 }

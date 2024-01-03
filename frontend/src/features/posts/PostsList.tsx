@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { API_URL } from "../../constants"
+import React, { useState, useEffect } from 'react';
+import { API_URL } from "../../constants";
+import { Link } from "react-router-dom";
 
 
 function PostsList() {
@@ -11,7 +12,7 @@ function PostsList() {
     useEffect(() => {
         async function loadPosts() {
             try {
-                const response = await fetch(API_URL);
+                const response = await fetch(API_URL + "/posts");
                 if (response.ok) {
                     const json = await response.json();
                     setPosts(json);
@@ -28,12 +29,15 @@ function PostsList() {
         loadPosts();
     }, []);
 
-    console.log(posts);
     return (
         <div>
             { posts.map((post) => (
                 <div key={ post['id'] } className="post">
-                    <h2>{ post['title'] }</h2>
+                    <h2>
+                        <Link to={`posts/${post['id']}`}>
+                            { post['title'] }
+                        </Link>
+                    </h2>
                     <p>{ post['body'] }</p>
                 </div>
             )) }
