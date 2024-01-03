@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { redirect, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { API_URL } from "../../constants";
 
 
@@ -11,22 +11,25 @@ export function NewPost() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         // Prevent redirect
         e.preventDefault();
+        try {
+            const newPostData = { title, body };
 
-        const newPostData = { title, body };
-
-        const response = await fetch(`${API_URL}/posts`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify( newPostData )
-        });
-        
-        if (response.ok) {
-            const { id } = await response.json();
-            navigate(`/posts/${id}`);
-        } else {
-            console.log("An error occured.");
+            const response = await fetch(`${API_URL}/posts`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify( newPostData )
+            });
+            
+            if (response.ok) {
+                const { id } = await response.json();
+                navigate(`/posts/${id}`);
+            } else {
+                throw response;
+            }
+        } catch (e) {
+            console.log("An error occurred.", e);
         }
     }
 
@@ -47,7 +50,7 @@ export function NewPost() {
 
                 <div>
                     <label htmlFor="bodyInput">Body:</label>
-                    <input 
+                    <textarea
                         id="bodyInput"
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
