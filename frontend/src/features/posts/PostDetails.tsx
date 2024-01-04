@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom"
-import { API_URL } from "../../constants";
+import { fetchPost, deletePost } from "../../services/postService";
 
 interface PostProps {
     "id": number;
@@ -20,13 +20,8 @@ function PostDetails() {
     useEffect(() => {
         const fetchCurrentPost = async () => {
             try {
-                const response = await fetch(`${API_URL}/posts/${id}`);
-                if (response.ok) {
-                    const json = await response.json();
-                    setPost(json);
-                } else {
-                    throw response;
-                }
+                const data = await fetchPost(Number(id));
+                setPost(data);
             } catch (e) {
                 setError("An error occurred.");
                 console.log("An error occurred:", e);
@@ -38,23 +33,12 @@ function PostDetails() {
         fetchCurrentPost();
     }, [id]);
 
-    const deletePost = async () => {
+    const handleDeletePost = async () => {
         try {
-            const response = await fetch(`${API_URL}/posts/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-
-            if (response.ok) {
-                console.log("Successfully deleted post.");
-                navigate(`/`);
-            } else {
-                throw response;
-            }
+            await deletePost(Number(id));
+            navigate("/");
         } catch (e) {
-            console.error(e);
+            console.error("Failed to delete post.", e);
         }
     }
 
@@ -72,7 +56,7 @@ function PostDetails() {
                 Edit Post
             </Link>
             {" | "}
-            <button onClick={ deletePost }>Delete</button>
+            <button onClick={ handleDeletePost }>Delete</button>
             {" | "}
             <Link to="/">Back to Posts</Link>
         </div>

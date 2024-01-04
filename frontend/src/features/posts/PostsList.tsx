@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { API_URL } from "../../constants";
+import { fetchAllPosts } from "../../services/postService";
 import { Link } from "react-router-dom";
 
 
@@ -12,16 +12,10 @@ function PostsList() {
     useEffect(() => {
         async function loadPosts() {
             try {
-                const response = await fetch(API_URL + "/posts");
-                if (response.ok) {
-                    const json = await response.json();
-                    setPosts(json);
-                } else {
-                    throw response;
-                }
+                const data = await fetchAllPosts();
+                setPosts(data);
             } catch (e) {
-                setError("An error occurred.");
-                console.log("An error occured:", e);
+                setError("An error occurred");
             } finally {
                 setLoading(false);
             }
