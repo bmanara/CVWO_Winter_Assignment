@@ -1,5 +1,10 @@
 import { API_URL } from "../constants";
 
+interface PostProps {
+    "title": string;
+    "body": string;
+}
+
 async function fetchAllPosts() {
     const response = await fetch(`${API_URL}/posts`);
     if (!response.ok) {
@@ -11,6 +16,22 @@ async function fetchAllPosts() {
 
 async function fetchPost(id: number) {
     const response = await fetch(`${API_URL}/posts/${id}`);
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
+
+    return response.json();
+}
+
+async function editPost(id: number, data: PostProps) {
+    const response = await fetch(`${API_URL}/posts/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
     if (!response.ok) {
         throw new Error(response.statusText);
     }
@@ -32,4 +53,4 @@ async function deletePost(id: number) {
     return response.status === 204 ? null : response.json();
 }
 
-export { fetchAllPosts, fetchPost, deletePost }
+export { fetchAllPosts, fetchPost, editPost, deletePost }

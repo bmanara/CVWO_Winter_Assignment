@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { API_URL } from "../../constants";
+import { fetchPost, editPost } from "../../services/postService";
 
 interface PostProps {
     "id": number;
@@ -21,13 +21,8 @@ export function EditPost() {
     useEffect(() => {
         const fetchCurrentPost = async () => {
             try {
-                const response = await fetch(`${API_URL}/posts/${id}`);
-                if (response.ok) {
-                    const json = await response.json();
-                    setPost(json);
-                } else {
-                    throw response;
-                }
+                const data = await fetchPost(Number(id));
+                setPost(data);
             } catch (e) {
                 console.log("An error occurred.", e);
                 setError("An error occurred.");
@@ -52,22 +47,10 @@ export function EditPost() {
                 title: post['title'],
                 body: post['body']
             };
-
-            const response = await fetch(`${API_URL}/posts/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify( editPostData )
-            });
             
-            if (response.ok) {
-                const json = await response.json();
-                console.log("Success", json);
-                navigate(`/posts/${id}`);
-            } else {
-                throw response;
-            }
+            const json = await editPost(Number(id), editPostData);
+            console.log("Success", json);
+            navigate(`/posts/${id}`);
         } catch (e) {
             console.log("An error occurred", e);
         }
