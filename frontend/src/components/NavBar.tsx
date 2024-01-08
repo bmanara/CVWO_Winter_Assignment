@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 
 interface userProps {
-    id: number;
-    username: string;
-    password_digest: string;
-    created_at: string;
-    updated_at: string;
+    id?: number;
+    username?: string;
+    password_digest?: string;
+    created_at?: string;
+    updated_at?: string;
 }
 
 interface StateProps {
-    user: userProps | {};
+    user: userProps;
     setUser: (user: object) => void;
     isLoggedIn: boolean;
     setIsLoggedIn: (isLoggedIn: boolean) => void;

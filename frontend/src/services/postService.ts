@@ -3,6 +3,7 @@ import { API_URL } from "../constants";
 interface PostProps {
     "title": string;
     "body": string;
+    "user_id": number;
 }
 
 async function createPost(data: PostProps) {

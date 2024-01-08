@@ -3,14 +3,17 @@ class Api::V1::PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.order(created_at: :desc)
+    @posts = Post.select("posts.*, users.username").joins(:user).order(created_at: :desc)
 
     render json: @posts
   end
 
   # GET /posts/1
   def show
-    render json: @post
+    render json: {
+      username: @post.user.username,
+      post: @post
+    }
   end
 
   # POST /posts
@@ -46,6 +49,6 @@ class Api::V1::PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body)
+      params.require(:post).permit(:title, :body, :user_id)
     end
 end

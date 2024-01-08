@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { fetchAllPosts } from "../../services/postService";
 import { Link } from "react-router-dom";
 
@@ -13,6 +13,7 @@ function PostsList() {
         async function loadPosts() {
             try {
                 const data = await fetchAllPosts();
+                console.log(data);
                 setPosts(data);
             } catch (e) {
                 setError("An error occurred");
@@ -32,6 +33,7 @@ function PostsList() {
                             { post['title'] }
                         </Link>
                     </h2>
+                    <h4>Posted by: { post['username'] }</h4>
                     <p>{ post['body'] }</p>
                 </div>
             )) }

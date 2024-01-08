@@ -8,11 +8,11 @@ import NavBar from "./components/NavBar";
 import { API_URL } from "./constants"
 
 interface userProps {
-    id: number;
-    username: string;
-    password_digest: string;
-    created_at: string;
-    updated_at: string;
+    id?: number;
+    username?: string;
+    password_digest?: string;
+    created_at?: string;
+    updated_at?: string;
 }
 
 function App() {
@@ -20,7 +20,6 @@ function App() {
     const [user, setUser] = useState<userProps | {}>({});
 
     const handleLogin = (data: any) => {
-        console.log("Structure of data:", data);
         setIsLoggedIn(true);
         setUser(data.user);
     }

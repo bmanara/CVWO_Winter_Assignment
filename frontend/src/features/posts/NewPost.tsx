@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { createPost } from "../../services/postService";
 
 
-export function NewPost({isLoggedIn} : {isLoggedIn: boolean}) {
+export function NewPost({user_id, isLoggedIn} : {user_id: number; isLoggedIn: boolean}) {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const navigate = useNavigate();
@@ -12,7 +12,7 @@ export function NewPost({isLoggedIn} : {isLoggedIn: boolean}) {
         // Prevent redirect
         e.preventDefault();
         try {
-            const newPostData = { title, body };
+            const newPostData = { title, body, user_id };
             const { id } = await createPost(newPostData);
             navigate(`/posts/${id}`);
         } catch (e) {

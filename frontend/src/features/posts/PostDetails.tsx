@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { fetchPost, deletePost } from "../../services/postService";
 
@@ -8,9 +8,11 @@ interface PostProps {
     "body": string;
     "created_at": string;
     "updated_at": string;
+    "user_id": number;
 }
 
 function PostDetails() {
+    const [author, setAuthor] = useState("");
     const [post, setPost] = useState<null | PostProps>(null);
     const [loading, setLoading] = useState(true);
     const [, setError] = useState<null | string>(null);
@@ -21,7 +23,8 @@ function PostDetails() {
         const fetchCurrentPost = async () => {
             try {
                 const data = await fetchPost(Number(id));
-                setPost(data);
+                setPost(data.post);
+                setAuthor(data.username);
             } catch (e) {
                 setError("An error occurred.");
                 console.log("An error occurred:", e);
@@ -50,7 +53,7 @@ function PostDetails() {
 
     return (
         <div>
-            <h2>{ post["title"] }</h2>
+            <h2>{ post["title"] } posted by: {author}</h2>
             <p>{ post["body"] }</p>
             <Link to={`/posts/${post["id"]}/edit`}>
                 Edit Post
