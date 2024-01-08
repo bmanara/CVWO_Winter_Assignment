@@ -3,7 +3,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../constants';
 
-export function Login() {
+interface FunctionProps {
+    setUser: (user: object) => void;
+    setIsLoggedIn: (isLoggedIn: boolean) => void;
+}
+
+export function Login({setIsLoggedIn, setUser}: FunctionProps) {
     const [userData, setUserData] = useState({username: '', password: ''});
     const [, setError] = useState();
     const navigate = useNavigate();
@@ -20,7 +25,8 @@ export function Login() {
                     {withCredentials: true})
         .then(response => {
             if (response.data.logged_in) {
-                this.props.handleLogin(response.data);
+                setIsLoggedIn(true);
+                setUser(response.data.user)
                 navigate("/");
             } else {
                 setError(response.data.errors);

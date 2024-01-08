@@ -3,7 +3,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from "../../constants";
 
-export function Signup() {
+interface FunctionProps {
+    setUser: (user: object) => void;
+    setIsLoggedIn: (isLoggedIn: boolean) => void;
+}
+
+
+export function Signup({setIsLoggedIn, setUser}: FunctionProps) {
     const [userData, setUserData] = useState({
         username: '',
         password: '',
@@ -26,7 +32,8 @@ export function Signup() {
         .then(response => {
             if (response.data.status === 'created') {
                 console.log("Successfully created!")
-                this.props.handleLogin(response.data)
+                setIsLoggedIn(true);
+                setUser(response.data.user)
                 console.log("Successfully Logged In!")
                 navigate("/")
             } else {

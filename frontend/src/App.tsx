@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import axios from 'axios';
 
@@ -7,60 +7,56 @@ import AppRoutes from "./components/AppRoutes"
 import NavBar from "./components/NavBar";
 import { API_URL } from "./constants"
 
-class App extends Component {
-  constructor(props: any) {
-    console.log("Structure of props:", props);
-    super(props);
-    this.state = {
-      isLoggedIn: false,
-      user: {}
-    };
-  }
-  componentDidMount() {
-    this.loginStatus()
-  }
+interface userProps {
+    id: number;
+    username: string;
+    password_digest: string;
+    created_at: string;
+    updated_at: string;
+}
 
-  loginStatus = () => {
-    axios.post(`${API_URL}/logged_in`,
-              {withCredentials: true})
-    .then(response => {
-      if (response.data.logged_in) {
-        this.handleLogin(response);
-      } else {
-        this.handleLogout();
-      }
-    })
-    .catch(error => console.log('API errors:', error))
-  }
+function App() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState<userProps | {}>({});
 
-  // TODO: Do not leave data parameter as 'any' type
-  handleLogin = (data: any) => {
-    console.log("Structure of 'data':", data);
-    this.setState({
-      isLoggedIn: true,
-      user: data.user
-    })
-  }
+    const handleLogin = (data: any) => {
+        console.log("Structure of data:", data);
+        setIsLoggedIn(true);
+        setUser(data.user);
+    }
 
-  handleLogout = () => {
-    this.setState({
-      isLoggedIn: false,
-      user: {}
-    })
-  }
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        setUser({});
+    }
 
-  render() {
+    const loginStatus = () => {
+        axios.post(`${API_URL}/logged_in`,
+                {withCredentials: true})
+        .then(response => {
+        if (response.data.logged_in) {
+            handleLogin(response);
+        } else {
+            handleLogout();
+        }
+        })
+        .catch(error => console.log('API errors:', error))
+    }
+
+    useEffect(() => { 
+        loginStatus();
+    }, []);
+
     return (
-      <Router>
-        <div className="container">
-          <h1>Web Forum</h1>
-          <p>Find this app layout in frontend/src/App.tsx</p>
-          <NavBar />
-          <AppRoutes />
-        </div>
-      </Router>
+        <Router>
+            <div className="container">
+                <h1>Web Forum</h1>
+                <p>Find this layout in frontend/src/App.tsx</p>
+                <NavBar user={user} setUser={setUser} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                <AppRoutes user={user} setUser={setUser} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+            </div>
+        </Router>
     )
-  }
 }
 
 export default App
