@@ -1,19 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom"
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { fetchPost, deletePost } from "../../services/postService";
+import { PostDetailsProps } from "../../types";
 
-interface PostProps {
-    "id": number;
-    "title": string;
-    "body": string;
-    "created_at": string;
-    "updated_at": string;
-    "user_id": number;
-}
 
 function PostDetails() {
     const [author, setAuthor] = useState("");
-    const [post, setPost] = useState<null | PostProps>(null);
+    const [post, setPost] = useState<null | PostDetailsProps>(null);
     const [loading, setLoading] = useState(true);
     const [, setError] = useState<null | string>(null);
     const { id } = useParams();

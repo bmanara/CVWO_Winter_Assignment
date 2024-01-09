@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchPost, editPost } from "../../services/postService";
 
-interface PostProps {
-    "id": number;
-    "title": string;
-    "body": string;
-    "created_at": string;
-    "updated_at": string;
-}
+import { fetchPost, editPost } from "../../services/postService";
+import { PostProps } from "../../types";
 
 
 export function EditPost() {
@@ -45,7 +39,8 @@ export function EditPost() {
         try {
             const editPostData = {
                 title: post['title'],
-                body: post['body']
+                body: post['body'],
+                user_id: post['user_id']
             };
             
             const json = await editPost(Number(id), editPostData);

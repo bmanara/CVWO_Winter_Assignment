@@ -8,20 +8,8 @@ import { EditPost } from "../features/posts/EditPost";
 import { Login } from "../features/users/Login";
 import { Signup } from "../features/users/Signup";
 
-interface userProps {
-    id?: number;
-    username?: string;
-    password_digest?: string;
-    created_at?: string;
-    updated_at?: string;
-}
+import { StateProps } from "../types";
 
-interface StateProps {
-    user: userProps;
-    setUser: (user: userProps) => void;
-    isLoggedIn: boolean;
-    setIsLoggedIn: (isLoggedIn: boolean) => void;
-}
 
 function AppRoutes({ user, setUser, isLoggedIn, setIsLoggedIn}: StateProps) {
     return (

@@ -7,17 +7,12 @@ import AppRoutes from "./components/AppRoutes"
 import NavBar from "./components/NavBar";
 import { API_URL } from "./constants"
 
-interface userProps {
-    id?: number;
-    username?: string;
-    password_digest?: string;
-    created_at?: string;
-    updated_at?: string;
-}
+import { UserProps } from "./types";
+
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState<userProps | {}>({});
+    const [user, setUser] = useState<UserProps | {}>({});
 
     const handleLogin = (data: any) => {
         setIsLoggedIn(true);

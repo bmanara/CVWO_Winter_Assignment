@@ -1,10 +1,6 @@
 import { API_URL } from "../constants";
+import { PostProps } from "../types"
 
-interface PostProps {
-    "title": string;
-    "body": string;
-    "user_id": number;
-}
 
 async function createPost(data: PostProps) {
     const response = await fetch(`${API_URL}/posts`, {

@@ -1,19 +1,7 @@
 import { Link } from "react-router-dom";
 
-interface userProps {
-    id?: number;
-    username?: string;
-    password_digest?: string;
-    created_at?: string;
-    updated_at?: string;
-}
+import { StateProps } from "../types";
 
-interface StateProps {
-    user: userProps;
-    setUser: (user: object) => void;
-    isLoggedIn: boolean;
-    setIsLoggedIn: (isLoggedIn: boolean) => void;
-}
 
 function NavBar({user, setUser, isLoggedIn, setIsLoggedIn}: StateProps) {
     console.log(user)
