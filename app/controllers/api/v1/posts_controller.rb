@@ -29,6 +29,7 @@ class Api::V1::PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
+    p current_user
     if @post.update(post_params)
       render json: @post
     else

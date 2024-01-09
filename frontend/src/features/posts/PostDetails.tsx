@@ -4,7 +4,7 @@ import { fetchPost, deletePost } from "../../services/postService";
 import { PostDetailsProps } from "../../types";
 
 
-function PostDetails() {
+function PostDetails({user_id}: {user_id: number}) {
     const [author, setAuthor] = useState("");
     const [post, setPost] = useState<null | PostDetailsProps>(null);
     const [loading, setLoading] = useState(true);
@@ -48,13 +48,15 @@ function PostDetails() {
         <div>
             <h2>{ post["title"] } posted by: {author}</h2>
             <p>{ post["body"] }</p>
-            <Link to={`/posts/${post["id"]}/edit`}>
-                Edit Post
-            </Link>
-            {" | "}
-            <button onClick={ handleDeletePost }>Delete</button>
-            {" | "}
-            <Link to="/">Back to Posts</Link>
+            { user_id === post["user_id"] ? <div>
+                                            <Link to={`/posts/${post["id"]}/edit`}>
+                                                Edit Post
+                                            </Link>
+                                            <button onClick={ handleDeletePost }>Delete</button>
+                                            <Link to="/">Back to Posts</Link>
+                                            </div>
+                                            :<div><Link to="/">Back to Posts</Link></div>
+            }
         </div>
     )
 }

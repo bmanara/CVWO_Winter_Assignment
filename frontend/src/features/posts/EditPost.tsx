@@ -5,7 +5,7 @@ import { fetchPost, editPost } from "../../services/postService";
 import { PostProps } from "../../types";
 
 
-export function EditPost() {
+export function EditPost({user_id, isLoggedIn}: {user_id: number; isLoggedIn: boolean}) {
     const { id } = useParams();
     const [post, setPost] = useState<null | PostProps>(null);
     const [loading, setLoading] = useState(true);
@@ -16,7 +16,8 @@ export function EditPost() {
         const fetchCurrentPost = async () => {
             try {
                 const data = await fetchPost(Number(id));
-                setPost(data);
+                console.log(data);
+                setPost(data['post']);
             } catch (e) {
                 console.log("An error occurred.", e);
                 setError("An error occurred.");
@@ -32,8 +33,21 @@ export function EditPost() {
         return (
             <h2>Loading...</h2>
         )
+    } else if (!isLoggedIn) {
+        return (
+            <div>
+                <h2>You are not signed in! Please sign in if you need to edit your posts!</h2>
+            </div>
+        )
+    } else if (user_id != post['user_id']) {
+        return (
+            <div>
+                <h2>You are not allowed to edit this post!</h2>
+            </div>
+        )
     }
 
+    
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {

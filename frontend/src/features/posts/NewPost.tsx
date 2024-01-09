@@ -3,7 +3,15 @@ import { useNavigate } from "react-router-dom"
 import { createPost } from "../../services/postService";
 
 
-export function NewPost({user_id, isLoggedIn} : {user_id: number; isLoggedIn: boolean}) {
+export function NewPost({user_id, isLoggedIn}: {user_id: number; isLoggedIn: boolean}) {
+    if (!isLoggedIn) {
+        return (
+            <div>
+                <h2>You are not signed in! Please sign in if you want to post!</h2>
+            </div>
+        )
+    }
+    
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const navigate = useNavigate();
@@ -18,14 +26,6 @@ export function NewPost({user_id, isLoggedIn} : {user_id: number; isLoggedIn: bo
         } catch (e) {
             console.log("An error occurred.", e);
         }
-    }
-
-    if (!isLoggedIn) {
-        return (
-            <div>
-                <h2>You are not signed in! Please sign in if you want to post!</h2>
-            </div>
-        )
     }
 
     return (
