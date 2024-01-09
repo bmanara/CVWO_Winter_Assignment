@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { createPost } from "../../services/postService";
+import { LoginProps } from "../../types";
 
-
-export function NewPost({user_id, isLoggedIn}: {user_id: number; isLoggedIn: boolean}) {
+export function NewPost({user_id, isLoggedIn}: LoginProps) {
     if (!isLoggedIn) {
         return (
             <div>

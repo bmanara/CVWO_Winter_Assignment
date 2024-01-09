@@ -17,7 +17,7 @@ function AppRoutes({ user, setUser, isLoggedIn, setIsLoggedIn}: StateProps) {
             <Route path="/" element={<PostsList />} />
             <Route path="/posts/new" element={<NewPost user_id={user.id} isLoggedIn={isLoggedIn}/>} /> 
             <Route path="/posts/:id/edit" element={<EditPost user_id={user.id} isLoggedIn={isLoggedIn} />} />
-            <Route path="posts/:id" element={<PostDetails user_id={user.id} />} />
+            <Route path="posts/:id" element={<PostDetails user_id={user.id} isLoggedIn={isLoggedIn} />} />
             <Route path="/login" element={<Login setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>}/>
             <Route path="/signup" element={<Signup setUser={setUser} setIsLoggedIn={setIsLoggedIn} />}/>
         </Routes>

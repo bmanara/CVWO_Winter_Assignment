@@ -27,3 +27,14 @@ export interface StateProps {
     isLoggedIn: boolean;
     setIsLoggedIn: (isLoggedIn: boolean) => void;
 }
+
+export interface LoginProps {
+    user_id: number;
+    isLoggedIn: boolean;
+}
+
+export interface CommentProps {
+    body: string;
+    post_id?: string;
+    user_id: string;
+}

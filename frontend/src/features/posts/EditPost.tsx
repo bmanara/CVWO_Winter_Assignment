@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { fetchPost, editPost } from "../../services/postService";
-import { PostProps } from "../../types";
+import { PostProps, LoginProps } from "../../types";
 
 
-export function EditPost({user_id, isLoggedIn}: {user_id: number; isLoggedIn: boolean}) {
+export function EditPost({user_id, isLoggedIn}: LoginProps) {
     const { id } = useParams();
     const [post, setPost] = useState<null | PostProps>(null);
     const [loading, setLoading] = useState(true);
