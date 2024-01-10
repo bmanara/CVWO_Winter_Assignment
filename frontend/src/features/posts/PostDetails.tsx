@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import * as React from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 import { fetchPost, deletePost } from "../../services/postService";
 import { createComment } from "../../services/commentService";
 import { PostDetailsProps, LoginProps } from "../../types";
+
+import Button from '@mui/material/Button';
 
 
 function PostDetails({user_id, isLoggedIn}: LoginProps) {
@@ -69,13 +72,13 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
             <h2>{ post["title"] } posted by: {author}</h2>
             <p>{ post["body"] }</p>
             { user_id === post["user_id"] ? <div>
-                                            <Link to={`/posts/${post["id"]}/edit`}>
+                                            <Button component={Link} to={`/posts/${post["id"]}/edit`}>
                                                 Edit Post
-                                            </Link>
-                                            <button onClick={ handleDeletePost }>Delete</button>
-                                            <Link to="/">Back to Posts</Link>
+                                            </Button>
+                                            <Button onClick={ handleDeletePost }>Delete</Button>
+                                            <Button component={Link} to="/">Back to Posts</Button>
                                             </div>
-                                            :<div><Link to="/">Back to Posts</Link></div>
+                                            :<div><Button component={Link} to="/">Back to Posts</Button></div>
             }
 
             { !isLoggedIn ? <div><h4>Log in to post a comment!</h4></div>

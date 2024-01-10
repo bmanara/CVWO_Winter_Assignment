@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../constants';
 
+import { Box, TextField, Button } from "@mui/material"
+
 interface FunctionProps {
     setUser: (user: object) => void;
     setIsLoggedIn: (isLoggedIn: boolean) => void;
@@ -37,34 +39,36 @@ export function Login({setIsLoggedIn, setUser}: FunctionProps) {
     };
 
     return (
-        <div>
+        <Box>
             <h2>Log In</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="usernameInput">Username:</label>
-                    <input
+                    <TextField
                         id="usernameInput"
                         type="text"
+                        label="Username"
+                        margin="normal"
                         value={userData['username']}
                         onChange={(e) => setUserData({...userData, username: e.target.value})}
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="passwordInput">Password:</label>
-                    <input
+                    <TextField
                         id="passwordInput"
                         type="password"
+                        label="Password"
+                        margin="normal"
                         value={userData['password']}
                         onChange={(e) => setUserData({...userData, password: e.target.value})}
                     />
                 </div>
 
                 <div>
-                    <button type="submit">Log In</button>
+                    <Button variant="contained" type="submit">Log In</Button>
                 </div>
             </form>
-        </div>
+        </Box>
     )
 }
 
