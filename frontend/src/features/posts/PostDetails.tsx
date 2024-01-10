@@ -23,6 +23,7 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
                 setPost(data.post);
                 setAuthor(data.username);
                 setComments(data.comments);
+                console.log(data.comments);
             } catch (e) {
                 setError("An error occurred.");
                 console.log("An error occurred:", e);
@@ -101,7 +102,7 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
             <div className="comments-container">
                 { comments.map((comment) => (
                     <div key={ comment['id'] } className="comment">
-                        <h4 className="comment-user">{comment['user_id']}:</h4>
+                        <h4 className="comment-user">{comment['username']}:</h4>
                         <p className="comment-body">{comment['body']}</p>
                     </div>
                 )) }

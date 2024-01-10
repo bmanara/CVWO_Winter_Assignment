@@ -10,9 +10,10 @@ class Api::V1::PostsController < ApplicationController
 
   # GET /posts/1
   def show
+    @comments = Comment.select("comments.*, users.username").joins(:user, :post).order(created_at: :desc)
     render json: {
       username: @post.user.username,
-      comments: @post.comments,
+      comments: @comments,
       post: @post
     }
   end
