@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from "../../constants";
 
+import { Button, TextField } from "@mui/material";
+
 interface FunctionProps {
     setUser: (user: object) => void;
     setIsLoggedIn: (isLoggedIn: boolean) => void;
@@ -49,37 +51,39 @@ export function Signup({setIsLoggedIn, setUser}: FunctionProps) {
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="usernameInput">Enter your username:</label>
-                    <input 
+                    <TextField 
                         id="usernameInput"
-                        type="text"
+                        label="Username"
                         value={userData['username']}
                         onChange={(e) => setUserData({...userData, username: e.target.value})}
+                        margin="normal"
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="passwordInput">Enter your password:</label>
-                    <input 
+                    <TextField 
                         id="passwordInput"
                         type="password"
+                        label="Password"
                         value={userData['password']}
                         onChange={(e) => setUserData({...userData, password: e.target.value})}
+                        margin="normal"
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="passwordConfirmationInput">Enter your password:</label>
-                    <input 
+                    <TextField 
                         id="passwordConfirmationInput"
                         type="password"
+                        label="Confirm Password"
                         value={userData['password_confirmation']}
                         onChange={(e) => setUserData({...userData, password_confirmation: e.target.value})}
+                        margin="normal"
                     />
                 </div>
 
                 <div>
-                    <button type="submit">Sign Up</button>
+                    <Button variant="contained" type="submit">Sign Up</Button>
                 </div>
             </form>
         </div>

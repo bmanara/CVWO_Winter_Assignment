@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 import { StateProps } from "../types";
 
@@ -17,15 +18,15 @@ function NavBar({user, setUser, isLoggedIn, setIsLoggedIn}: StateProps) {
                         : <div></div>
             }
             
-            <Link to="/">All Forums</Link>
+            <Button component={Link} to="/">All Forums</Button>
             {" | "}
-            <Link to="/posts/new">New Post</Link>
+            <Button component={Link} to="/posts/new">New Post</Button>
             {" | "}
             {isLoggedIn ? <button onClick={handleLogout}>Logout</button>
-                        : <Link to="/login">Log In</Link>
+                        : <Button component={Link} to="/login">Log In</Button>
             }
             {" | "}
-            <Link to="/signup">Sign Up</Link>
+            <Button component={Link} to="/signup">Sign Up</Button>
         </nav>
     )
 }
