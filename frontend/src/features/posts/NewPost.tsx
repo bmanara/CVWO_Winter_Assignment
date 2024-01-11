@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { Button, TextField } from "@mui/material";
+
 import { createPost } from "../../services/postService";
 import { LoginProps } from "../../types";
 
@@ -33,28 +35,33 @@ export function NewPost({user_id, isLoggedIn}: LoginProps) {
             <h2>Create a New Post</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="titleInput">Title:</label>
-                    <input 
+                    <TextField 
                         id="titleInput" 
                         type="text"
+                        label="Title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        margin="normal"
                         required
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="bodyInput">Body:</label>
-                    <textarea
+                    <TextField
                         id="bodyInput"
                         value={body}
+                        label="Body"
                         onChange={(e) => setBody(e.target.value)}
+                        margin="normal"
                         required
+                        fullWidth
+                        multiline
+                        rows={5}
                     />
                 </div>
 
                 <div>
-                    <button type="submit">Create Post</button>
+                    <Button variant="contained" type="submit">Create Post</Button>
                 </div>
             </form>
         </div>

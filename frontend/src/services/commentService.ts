@@ -15,5 +15,5 @@ export async function createComment(data: CommentProps) {
         throw new Error(response.statusText);
     }
 
-    return response.json()
+    return response.json();
 ;}

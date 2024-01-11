@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # API Routes will go to /api/v1
   namespace :api do
     namespace :v1 do
+      get 'search/posts'
       resources :posts
       resources :users, only: [:create, :show, :index] do
         resources :items, only: [:create, :show, :index, :destroy]

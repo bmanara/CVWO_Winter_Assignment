@@ -57,6 +57,7 @@ export function Signup({setIsLoggedIn, setUser}: FunctionProps) {
                         value={userData['username']}
                         onChange={(e) => setUserData({...userData, username: e.target.value})}
                         margin="normal"
+                        required
                     />
                 </div>
 
@@ -68,6 +69,7 @@ export function Signup({setIsLoggedIn, setUser}: FunctionProps) {
                         value={userData['password']}
                         onChange={(e) => setUserData({...userData, password: e.target.value})}
                         margin="normal"
+                        required
                     />
                 </div>
 
@@ -79,6 +81,7 @@ export function Signup({setIsLoggedIn, setUser}: FunctionProps) {
                         value={userData['password_confirmation']}
                         onChange={(e) => setUserData({...userData, password_confirmation: e.target.value})}
                         margin="normal"
+                        required
                     />
                 </div>
 
