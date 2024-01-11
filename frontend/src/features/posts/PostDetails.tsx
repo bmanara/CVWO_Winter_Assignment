@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import * as React from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 import { fetchPost, deletePost } from "../../services/postService";
 import { createComment } from "../../services/commentService";
 import { PostDetailsProps, LoginProps } from "../../types";
 
-import Button from '@mui/material/Button';
+import { Button, TextField } from '@mui/material';
 
 
 function PostDetails({user_id, isLoggedIn}: LoginProps) {
@@ -69,36 +68,35 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
 
     return (
         <div>
-            <h2>{ post["title"] } posted by: {author}</h2>
+            <h2>{ post["title"] }</h2>
+            <h4>posted by: {author}</h4>
             <p>{ post["body"] }</p>
+
             { user_id === post["user_id"] ? <div>
                                             <Button component={Link} to={`/posts/${post["id"]}/edit`}>
                                                 Edit Post
                                             </Button>
                                             <Button onClick={ handleDeletePost }>Delete</Button>
-                                            <Button component={Link} to="/">Back to Posts</Button>
                                             </div>
-                                            :<div><Button component={Link} to="/">Back to Posts</Button></div>
+                                            :<div></div>
             }
 
             { !isLoggedIn ? <div><h4>Log in to post a comment!</h4></div>
                           : <div className="post-comment-container">
                                 <form onSubmit={handleNewComment}>
-                                    <label htmlFor="bodyInput">New Comment:</label>
-                                    <textarea 
+                                    <TextField 
                                         id="bodyInput"
                                         placeholder="Type your comment here!"
+                                        size="small"
                                         onChange={(e) => setNewComment(e.target.value)}
                                         required
                                     />
-                                    <button type="submit">Post Comment</button>
+                                    <Button type="submit">Post Comment</Button>
                                 </form>
                             </div>
             }
-
             
-            
-            {comments.length === 0 ? <div>No comments on this post. Be the first!</div>
+            {comments.length === 0 ? <div><h2>No comments on this post. Be the first!</h2></div>
                                    : <div><h2>Comments:</h2></div>
             }
 

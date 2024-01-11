@@ -17,13 +17,10 @@ function NavBar({user, setUser, isLoggedIn, setIsLoggedIn}: StateProps) {
                           </div>
                         : <Button component={Link} to="/signup">Sign Up</Button>
             }
-            {" | "}
             {isLoggedIn ? <Button onClick={handleLogout}>Logout</Button>
                         : <Button component={Link} to="/login">Log In</Button>
             }
-            {" | "}
-            <Button component={Link} to="/">All Forums</Button>
-            {" | "}
+            <Button component={Link} to="/">All Posts</Button>
             <Button component={Link} to="/posts/new">New Post</Button>            
         </nav>
     )

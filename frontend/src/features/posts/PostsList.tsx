@@ -28,13 +28,13 @@ function PostsList() {
         <div>
             { posts.map((post) => (
                 <div key={ post['id'] } className="post">
-                    <h2>
+                    <h2 className="title">
                         <Link to={`/posts/${post['id']}`}>
                             { post['title'] }
                         </Link>
                     </h2>
-                    <h4>Posted by: { post['username'] }</h4>
-                    <p>{ post['body'] }</p>
+                    <p className="body">{ post['body'] }</p>
+                    <h5>By: { post['username'] }</h5>
                 </div>
             )) }
         </div>
