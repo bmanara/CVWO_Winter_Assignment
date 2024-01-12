@@ -7,7 +7,6 @@ import { PostDetailsProps, LoginProps } from "../../types";
 
 import { Button, TextField } from '@mui/material';
 
-
 function PostDetails({user_id, isLoggedIn}: LoginProps) {
     const [author, setAuthor] = useState("");
     const [post, setPost] = useState<null | PostDetailsProps>(null);
@@ -67,7 +66,7 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
     }
 
     return (
-        <div>
+        <div className="post-details">
             <h2>{ post["title"] }</h2>
             <h4>posted by: {author}</h4>
             <p>{ post["body"] }</p>
@@ -81,29 +80,40 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
                                             :<div></div>
             }
 
+            <div className="post-comment">
+                <div className="hr" />
+                    <p className="hr-text">Comments</p>
+                <div className="hr" />
+            </div>
+
+            {comments.length === 0 ? <div><h2>No comments on this post. Be the first!</h2></div>
+                                   : <div></div>
+            }
+
             { !isLoggedIn ? <div><h4>Log in to post a comment!</h4></div>
                           : <div className="post-comment-container">
                                 <form onSubmit={handleNewComment}>
                                     <TextField 
                                         id="bodyInput"
-                                        placeholder="Type your comment here!"
+                                        placeholder="What are your thoughts?"
                                         size="small"
+                                        margin="normal"
                                         onChange={(e) => setNewComment(e.target.value)}
                                         required
                                     />
-                                    <Button type="submit">Post Comment</Button>
+                                    <div>
+                                        <Button variant="outlined" type="submit">Comment</Button>
+                                    </div>
                                 </form>
                             </div>
             }
             
-            {comments.length === 0 ? <div><h2>No comments on this post. Be the first!</h2></div>
-                                   : <div><h2>Comments:</h2></div>
-            }
+            
 
             <div className="comments-container">
                 { comments.map((comment) => (
                     <div key={ comment['id'] } className="comment">
-                        <h4 className="comment-user">{comment['username']}:</h4>
+                        <h4 className="comment-user">{comment['username']}</h4>
                         <p className="comment-body">{comment['body']}</p>
                     </div>
                 )) }

@@ -13,7 +13,6 @@ function PostsList() {
         async function loadPosts() {
             try {
                 const data = await fetchAllPosts();
-                console.log(data);
                 setPosts(data);
             } catch (e) {
                 setError("An error occurred");
@@ -27,15 +26,15 @@ function PostsList() {
     return (
         <div>
             { posts.map((post) => (
-                <div key={ post['id'] } className="post">
-                    <h2 className="title">
-                        <Link to={`/posts/${post['id']}`}>
-                            { post['title'] }
-                        </Link>
-                    </h2>
-                    <p className="body">{ post['body'] }</p>
-                    <h5>By: { post['username'] }</h5>
-                </div>
+                <Link className="fill-div"  to={`/posts/${post['id']}`}>
+                    <div key={ post['id'] } className="post">
+                        <h2 className="title">
+                            { post['title'] }                        
+                        </h2>
+                        <p className="body">{ post['body'] }</p>
+                        <h5>By: { post['username'] }</h5>
+                    </div>
+                </Link>
             )) }
         </div>
     )

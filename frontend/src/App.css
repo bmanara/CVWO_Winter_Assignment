@@ -1,12 +1,57 @@
 #root {
-  max-width: 1280px;
+  width: 80vw;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
+#root.container {
+  width: 100%;
+}
+
+/* PostsList CSS */
+
 .post {
   margin: 1em;
   border: 1px solid lightblue;
   border-radius: 5px;
+  text-decoration: none;
+  color: #213547;
 }
+
+.fill-div > * {
+  text-decoration: none;
+}
+
+/* PostDetails CSS */
+.post-details {
+  width: 100%;
+}
+
+.post-comment {
+  display: flex;
+  align-items: center;
+}
+
+.hr {
+  flex: 1;
+  background: lightblue;
+  height: 3px;
+}
+
+.hr-text {
+  margin: 0 10px;
+}
+
+.comment-user {
+  padding-left: 2em;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.comment-body {
+  padding-left: 2em;
+  text-align: left;
+  margin-top: 0;
+}
+
