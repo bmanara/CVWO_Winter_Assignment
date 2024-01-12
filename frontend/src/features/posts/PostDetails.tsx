@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 import { fetchPost, deletePost } from "../../services/postService";
-import { createComment } from "../../services/commentService";
+import { createComment, deleteComment } from "../../services/commentService";
 import { PostDetailsProps, LoginProps } from "../../types";
 
 import { Button, TextField } from '@mui/material';
@@ -59,6 +59,16 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
         }
     }
 
+    const handleDeleteComment = async (comment_id: string) => {
+        try {
+            await deleteComment(Number(comment_id));
+            setComments(comments.filter((comment) => {comment['id'] != comment_id}))
+            navigate(`/posts/${id}`);
+        } catch (e) {
+            console.error("Failed to delete post.", e);
+        }
+    }
+
     if (loading || !post) {
         return (
             <h2>Loading...</h2>
@@ -68,7 +78,7 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
     return (
         <div className="post-details">
             <h2>{ post["title"] }</h2>
-            <h4>posted by: {author}</h4>
+            <h5>posted by: {author}</h5>
             <p>{ post["body"] }</p>
 
             { user_id === post["user_id"] ? <div>
@@ -86,7 +96,7 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
                 <div className="hr" />
             </div>
 
-            {comments.length === 0 ? <div><h2>No comments on this post. Be the first!</h2></div>
+            {comments.length === 0 ? <div><h3>No comments on this post. Be the first!</h3></div>
                                    : <div></div>
             }
 
@@ -97,13 +107,10 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
                                         id="bodyInput"
                                         placeholder="What are your thoughts?"
                                         size="small"
-                                        margin="normal"
                                         onChange={(e) => setNewComment(e.target.value)}
                                         required
                                     />
-                                    <div>
-                                        <Button variant="outlined" type="submit">Comment</Button>
-                                    </div>
+                                    <Button variant="outlined" type="submit">Comment</Button>
                                 </form>
                             </div>
             }
@@ -115,6 +122,8 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
                     <div key={ comment['id'] } className="comment">
                         <h4 className="comment-user">{comment['username']}</h4>
                         <p className="comment-body">{comment['body']}</p>
+                        { comment['user_id'] == user_id ? <Button size="small" onClick={() => handleDeleteComment(comment['id'])}>Delete</Button>
+                                                        : <div></div>}
                     </div>
                 )) }
             </div>

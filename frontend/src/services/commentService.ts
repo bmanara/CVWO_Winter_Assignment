@@ -16,4 +16,18 @@ export async function createComment(data: CommentProps) {
     }
 
     return response.json();
-;}
+}
+
+export async function deleteComment(id: number) {
+    const response = await fetch(`${API_URL}/comments/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
+
+    return response.status === 204 ? null : response.json();
+}

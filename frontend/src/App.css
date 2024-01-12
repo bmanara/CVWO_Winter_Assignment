@@ -43,6 +43,14 @@
   margin: 0 10px;
 }
 
+.comment > button {
+  position: absolute;
+  left: 75%;
+  bottom: 17%;
+  color: red;
+}
+
+
 .comment-user {
   padding-left: 2em;
   text-align: left;
@@ -53,5 +61,9 @@
   padding-left: 2em;
   text-align: left;
   margin-top: 0;
+}
+
+.post-comment-container > form > button {
+  margin: 0 1em; 
 }
 
