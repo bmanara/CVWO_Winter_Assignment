@@ -4,6 +4,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { fetchPost, editPost } from "../../services/postService";
 import { PostProps, LoginProps } from "../../types";
 
+import { TextField, Button } from "@mui/material";
+
 
 export function EditPost({user_id, isLoggedIn}: LoginProps) {
     const { id } = useParams();
@@ -70,26 +72,33 @@ export function EditPost({user_id, isLoggedIn}: LoginProps) {
             <h2>Edit Post</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="titleInput">Title:</label>
-                    <input 
+                    <TextField
                         id="titleInput"
+                        label="Title"
                         type="text"
+                        margin="normal"
                         value={post['title']}
                         onChange={(e) => setPost({...post, title: e.target.value})}
+                        required
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="bodyInput">Body:</label>
-                    <textarea
+                    <TextField
                         id="bodyInput"
+                        label="Body"
                         value={post['body']}
+                        margin="normal"
                         onChange={(e) => setPost({...post, body: e.target.value})}
+                        fullWidth
+                        required
+                        multiline
+                        rows={5}
                     />
                 </div>
 
                 <div>
-                    <button type="submit">Edit Post</button>
+                    <Button variant="contained" type="submit">Edit Post</Button>
                 </div>
             </form>
         </div>
