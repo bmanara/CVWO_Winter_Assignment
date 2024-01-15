@@ -22,9 +22,9 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
             try {
                 const data = await fetchPost(Number(id));
                 setPost(data.post);
+                console.log(data.post);
                 setAuthor(data.username);
                 setComments(data.comments);
-                console.log(data.comments);
             } catch (e) {
                 setError("An error occurred.");
                 console.log("An error occurred:", e);
@@ -79,7 +79,7 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
         <div className="post-details">
             <h2>{ post["title"] }</h2>
             <h5>posted by: {author}</h5>
-            <p>{ post["body"] }</p>
+            <pre><p>{ post["body"] }</p></pre>
 
             { user_id === post["user_id"] ? <div>
                                             <Button component={Link} to={`/posts/${post["id"]}/edit`}>
