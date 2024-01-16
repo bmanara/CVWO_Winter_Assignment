@@ -23,6 +23,10 @@ function PostsList() {
         loadPosts();
     }, []);
 
+    function formatDate(date: string) {
+        return new Date(date).toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric'})
+    }
+
     if (loading || !posts.length ) {
         return (
             <h2>Loading...</h2>
@@ -41,7 +45,7 @@ function PostsList() {
                         { post['body'].length > 1000 ? <p className="body">{ post['body'].slice(0, 1000) }...</p>
                                                    : <p className="body">{ post['body'] }</p>}
                         </pre>
-                        <h5>By: { post['username'] }</h5>
+                        <h5>By: { post['username'] } | Posted on: { formatDate(post['created_at']) }</h5>
                     </div>
                 </Link>
             )) }

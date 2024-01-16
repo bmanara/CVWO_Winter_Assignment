@@ -69,6 +69,10 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
         }
     }
 
+    function formatDate(date: string) {
+        return new Date(date).toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric'})
+    }
+
     if (loading || !post) {
         return (
             <h2>Loading...</h2>
@@ -78,7 +82,7 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
     return (
         <div className="post-details">
             <h2>{ post["title"] }</h2>
-            <h5>posted by: {author}</h5>
+            <h5>By: {author} | Posted on: { formatDate(post['created_at']) }</h5>
             <pre><p>{ post["body"] }</p></pre>
 
             { user_id === post["user_id"] ? <div>

@@ -20,6 +20,7 @@ pre {
 
 .post {
   margin: 1em;
+  padding: 2em;
   border: 1px solid lightblue;
   border-radius: 5px;
   text-decoration: none;
