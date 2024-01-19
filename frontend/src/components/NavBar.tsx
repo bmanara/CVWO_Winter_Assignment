@@ -31,7 +31,11 @@ function NavBar({user, setUser, isLoggedIn, setIsLoggedIn}: StateProps) {
     }, []);
 
     const handleSearch = async () => {
-        navigate(`/search/${search}`);
+        if (!search) {
+            navigate("/");
+        } else {
+            navigate(`/search/${search}`);
+        }
     }
 
     return (
