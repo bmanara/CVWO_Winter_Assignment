@@ -10,6 +10,7 @@
 
 
 Post.destroy_all
+Category.destroy_all
 
 # Create 20 posts by using 'faker' gem. (Testing purposes)
 20.times do
@@ -19,3 +20,28 @@ Post.destroy_all
     user_id: 1
   )
 end
+
+Category.create(
+  name: "Discussions",
+  description: "Discuss and debate about any and all topics!"
+)
+
+Category.create(
+  name: "Questions",
+  description: "Have a question you need the answer to? Ask here!"
+)
+
+Category.create(
+  name: "Ideas",
+  description: "Don't know whether your idea is good or looking for honest feedback? Post it here!"
+)
+
+Category.create(
+  name: "Events",
+  description: "Holding an event? Raise awareness of it here!"
+)
+
+Category.create(
+  name: "Issues",
+  description: "Talk about current issues happening around the world here!"
+)

@@ -2,16 +2,17 @@ Rails.application.routes.draw do
   # API Routes will go to /api/v1
   namespace :api do
     namespace :v1 do
-      get 'search/posts'
       resources :posts
+      resources :categories, only: [:index]
       resources :users, only: [:create, :show, :index] do
         resources :items, only: [:create, :show, :index, :destroy]
       end
       resources :comments, only: [:create, :destroy]
 
-        post '/login',     to: 'sessions#create'
-        post '/logout',    to: 'session#destroy'
-        post '/logged_in', to: 'sessions#is_logged_in?'
+      get '/search',     to: 'posts#search'
+      post '/login',     to: 'sessions#create'
+      post '/logout',    to: 'session#destroy'
+      post '/logged_in', to: 'sessions#is_logged_in?'
     end
   end
 

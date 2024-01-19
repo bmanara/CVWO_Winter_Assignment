@@ -12,6 +12,8 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
     const [post, setPost] = useState<null | PostDetailsProps>(null);
     const [newComment, setNewComment] = useState("");
     const [comments, setComments] = useState([]);
+    // TODO: Don't leave it as any!
+    const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(true);
     const [, setError] = useState<null | string>(null);
     const { id } = useParams();
@@ -22,9 +24,9 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
             try {
                 const data = await fetchPost(Number(id));
                 setPost(data.post);
-                console.log(data.post);
                 setAuthor(data.username);
                 setComments(data.comments);
+                setCategory(data.category);
             } catch (e) {
                 setError("An error occurred.");
                 console.log("An error occurred:", e);
@@ -82,7 +84,7 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
     return (
         <div className="post-details">
             <h2>{ post["title"] }</h2>
-            <h5>By: {author} | Posted on: { formatDate(post['created_at']) }</h5>
+            <h5>By: {author} | Posted on: { formatDate(post['created_at']) } | Category: { category[0]['name'] }</h5>
             <pre><p>{ post["body"] }</p></pre>
 
             { user_id === post["user_id"] ? <div>

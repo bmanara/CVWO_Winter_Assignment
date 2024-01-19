@@ -1,23 +1,24 @@
-import { useState, useEffect } from 'react';
-import { fetchAllPosts, fetchAllCategories } from "../../services/postService";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
-import { FormControl, InputLabel, Select, MenuItem, Button } from "@mui/material";
+import { searchPosts } from "../../services/postService";
 
 
-function PostsList() {
+import { FormControl, InputLabel, Select, Button, MenuItem } from "@mui/material";
+
+function SearchPosts() {
     const [posts, setPosts] = useState<any[]>([]);
-    const [categories, setCategories] = useState<any[]>([]);
     const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(true);
     const [, setError] = useState<null | string>(null);
+
+    const { query } = useParams();
     const navigate = useNavigate();
 
-    // Make call API to fetch posts from backend
     useEffect(() => {
         async function loadPosts() {
             try {
-                const data = await fetchAllPosts();
+                const data = await searchPosts(query);
                 setPosts(data);
             } catch (e) {
                 setError("An error occurred");
@@ -25,19 +26,7 @@ function PostsList() {
                 setLoading(false);
             }
         }
-        async function loadCategories() {
-            try {
-                const data = await fetchAllCategories();
-                setCategories(data);
-                console.log(data);
-            } catch (e) {
-                setError("An error occured");
-            } finally {
-                setLoading(false);
-            }
-        }
         loadPosts();
-        loadCategories();
     }, []);
 
     function formatDate(date: string) {
@@ -47,15 +36,17 @@ function PostsList() {
     const handleSearch = async () => {
         navigate(`/search/${search}`);
     }
-    
 
-    if (loading || !posts.length ) {
+    if (loading) {
         return (
             <h2>Loading...</h2>
         )
+    } else if (!posts.length) {
+        return (
+            <h2>No posts made in this category. Be the first!</h2>
+        )
     }
 
-    // TODO: Make search select more responsive. (Do not hardcode MenuItems)
     return (
         <div>
             <div>
@@ -69,13 +60,12 @@ function PostsList() {
                             label="Search by Category"
                             onChange={(e) => setSearch(e.target.value)}
                         >
-                            {
-                                categories.map((category_details) => (<MenuItem value={ category_details['name'] }>{ category_details["name"] }</MenuItem>))
-                            }
+                            <MenuItem value="others">Others</MenuItem>
                         </Select>
                     </FormControl>
                     <Button type="submit">Search</Button>
                 </form>
+                
             </div>
             { posts.map((post) => (
                 <Link key={ post['id'] } className="fill-div"  to={`/posts/${post['id']}`}>
@@ -95,4 +85,4 @@ function PostsList() {
     )
 }
 
-export default PostsList;
+export default SearchPosts;

@@ -14,10 +14,14 @@ class Api::V1::PostsController < ApplicationController
                        .joins(:user, :post)
                        .where('post_id = ?', "#{@post.id}")
                        .order(created_at: :desc)
+    @category = Post.select("categories.name, categories.description")
+                        .joins(:category)
+                        .where('posts.id = ?', "#{@post.id}")
     render json: {
       username: @post.user.username,
       comments: @comments,
-      post: @post
+      post: @post,
+      category: @category
     }
   end
 
@@ -46,6 +50,12 @@ class Api::V1::PostsController < ApplicationController
     @post.destroy!
   end
 
+  #search /posts/search?q=query
+  def search
+    @posts = Post.joins(:category).where("name = ?", "#{params[:q]}");
+    render json: @posts
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -54,6 +64,6 @@ class Api::V1::PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body, :user_id)
+      params.require(:post).permit(:title, :body, :user_id, :category_id)
     end
 end

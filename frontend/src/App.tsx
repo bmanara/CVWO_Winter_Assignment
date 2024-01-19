@@ -8,6 +8,7 @@ import NavBar from "./components/NavBar";
 import { API_URL } from "./constants"
 
 import { UserProps } from "./types";
+import { Box } from "@mui/material";
 
 
 function App() {
@@ -43,12 +44,11 @@ function App() {
 
     return (
         <Router>
-            <div className="container">
+            <Box className="container">
                 <h1>Web Forum</h1>
-                <p>Find this layout in frontend/src/App.tsx</p>
                 <NavBar user={user} setUser={setUser} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
                 <AppRoutes user={user} setUser={setUser} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
-            </div>
+            </Box>
         </Router>
     )
 }

@@ -26,6 +26,15 @@ async function fetchAllPosts() {
     return response.json();
 }
 
+async function searchPosts(query: string | undefined) {
+    const response = await fetch(`${API_URL}/search?q=${query}`);
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
+
+    return response.json();
+}
+
 async function fetchPost(id: number) {
     const response = await fetch(`${API_URL}/posts/${id}`);
     if (!response.ok) {
@@ -64,4 +73,13 @@ async function deletePost(id: number) {
     return response.status === 204 ? null : response.json();
 }
 
-export { createPost, fetchAllPosts, fetchPost, editPost, deletePost }
+async function fetchAllCategories() {
+    const response = await fetch(`${API_URL}/categories`)
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
+
+    return response.json();
+}
+
+export { createPost, fetchAllPosts, searchPosts, fetchPost, editPost, deletePost, fetchAllCategories }
