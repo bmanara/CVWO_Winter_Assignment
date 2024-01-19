@@ -14,7 +14,7 @@ class Api::V1::PostsController < ApplicationController
                        .joins(:user, :post)
                        .where('post_id = ?', "#{@post.id}")
                        .order(created_at: :desc)
-    @category = Post.select("categories.name, categories.description")
+    @category = Post.select("categories.*")
                         .joins(:category)
                         .where('posts.id = ?', "#{@post.id}")
     render json: {
@@ -52,7 +52,7 @@ class Api::V1::PostsController < ApplicationController
 
   #search /posts/search?q=query
   def search
-    @posts = Post.joins(:category).where("name = ?", "#{params[:q]}");
+    @posts = Post.joins(:category).where("name = ?", "#{params[:q]}").order(created_at: :desc);
     render json: @posts
   end
 

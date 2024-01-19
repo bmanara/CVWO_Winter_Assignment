@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { fetchPost, editPost } from "../../services/postService";
+import { fetchPost, editPost, fetchAllCategories } from "../../services/postService";
 import { PostProps, LoginProps } from "../../types";
 
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, InputLabel, Select, MenuItem, FormControl } from "@mui/material";
 
 
 export function EditPost({user_id, isLoggedIn}: LoginProps) {
     const { id } = useParams();
     const [post, setPost] = useState<null | PostProps>(null);
+    const [category_id, setCategoryId] = useState("");
+    const [categories, setCategories] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [, setError] = useState<null | string>(null);
     const navigate = useNavigate();
@@ -20,6 +22,7 @@ export function EditPost({user_id, isLoggedIn}: LoginProps) {
                 const data = await fetchPost(Number(id));
                 console.log(data);
                 setPost(data['post']);
+                setCategoryId(data['category'][0]['id'])
             } catch (e) {
                 console.log("An error occurred.", e);
                 setError("An error occurred.");
@@ -27,8 +30,20 @@ export function EditPost({user_id, isLoggedIn}: LoginProps) {
                 setLoading(false);
             }
         }
+        async function loadCategories() {
+            try {
+                const data = await fetchAllCategories();
+                setCategories(data);
+                console.log(data);
+            } catch (e) {
+                setError("An error occured");
+            } finally {
+                setLoading(false);
+            }
+        }
 
         fetchCurrentPost();
+        loadCategories();
     }, [id]);
 
     if (loading || !post) {
@@ -56,7 +71,8 @@ export function EditPost({user_id, isLoggedIn}: LoginProps) {
             const editPostData = {
                 title: post['title'],
                 body: post['body'],
-                user_id: post['user_id']
+                user_id: post['user_id'],
+                category_id: category_id
             };
             
             const json = await editPost(Number(id), editPostData);
@@ -71,6 +87,22 @@ export function EditPost({user_id, isLoggedIn}: LoginProps) {
         <div>
             <h2>Edit Post</h2>
             <form onSubmit={handleSubmit}>
+                <div>
+                    <FormControl fullWidth>
+                        <InputLabel id="category-label">Category</InputLabel>
+                        <Select
+                        labelId="category-label"
+                        id="category-select"
+                        value={category_id}
+                        label="Category"
+                        onChange={(e) => setCategoryId(e.target.value)}>
+                            {
+                                categories.map((category_details) => (<MenuItem value={ category_details['id'] }>{ category_details['name'] }</MenuItem>))
+                            }
+                        </Select>
+                    </FormControl>
+                </div>
+
                 <div>
                     <TextField
                         id="titleInput"
