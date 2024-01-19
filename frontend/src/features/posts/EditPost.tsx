@@ -88,6 +88,18 @@ export function EditPost({user_id, isLoggedIn}: LoginProps) {
             <h2>Edit Post</h2>
             <form onSubmit={handleSubmit}>
                 <div>
+                    <TextField
+                        id="titleInput"
+                        label="Title"
+                        type="text"
+                        margin="normal"
+                        value={post['title']}
+                        onChange={(e) => setPost({...post, title: e.target.value})}
+                        required
+                    />
+                </div>
+
+                <div>
                     <FormControl fullWidth>
                         <InputLabel id="category-label">Category</InputLabel>
                         <Select
@@ -101,18 +113,6 @@ export function EditPost({user_id, isLoggedIn}: LoginProps) {
                             }
                         </Select>
                     </FormControl>
-                </div>
-
-                <div>
-                    <TextField
-                        id="titleInput"
-                        label="Title"
-                        type="text"
-                        margin="normal"
-                        value={post['title']}
-                        onChange={(e) => setPost({...post, title: e.target.value})}
-                        required
-                    />
                 </div>
 
                 <div>

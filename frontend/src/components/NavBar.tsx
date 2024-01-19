@@ -62,7 +62,7 @@ function NavBar({user, setUser, isLoggedIn, setIsLoggedIn}: StateProps) {
                             }
                         </Select>
                     </FormControl>
-                    <Button type="submit">Search</Button>
+                    <Button type="submit" size="large" className="search-btn">Search</Button>
                 </form>
             </div>
         </nav>

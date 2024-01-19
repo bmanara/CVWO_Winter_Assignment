@@ -33,6 +33,7 @@ export function Login({setIsLoggedIn, setUser}: FunctionProps) {
             } else {
                 setError(response.data.errors);
                 console.log("ERROR", response.data.errors);
+                alert("Invalid Username or Password")
             }
         })
         .catch(error => console.log('API errors:', error))

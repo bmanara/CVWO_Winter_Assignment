@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, TextField, InputLabel, Select, MenuItem } from "@mui/material";
+import { Button, TextField, InputLabel, Select, MenuItem, FormControl } from "@mui/material";
 
 import { createPost, fetchAllCategories } from "../../services/postService";
 import { LoginProps } from "../../types";
@@ -18,7 +18,7 @@ export function NewPost({user_id, isLoggedIn}: LoginProps) {
     const [body, setBody] = useState("");
     const [category_id, setCategoryId] = useState("");
     const [categories, setCategories] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
     const [, setError] = useState<null |string>(null);
     const navigate = useNavigate();
 
@@ -55,20 +55,6 @@ export function NewPost({user_id, isLoggedIn}: LoginProps) {
             <h2>Create a New Post</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <InputLabel id="category-label">Category</InputLabel>
-                    <Select
-                    labelId="category-label"
-                    id="category-select"
-                    value={category_id}
-                    label="Category"
-                    onChange={(e) => setCategoryId(e.target.value)}>
-                        {
-                            categories.map((category_details) => (<MenuItem value={ category_details['id'] }>{ category_details['name'] }</MenuItem>))
-                        }
-                    </Select>
-                </div>
-
-                <div>
                     <TextField 
                         id="titleInput" 
                         type="text"
@@ -78,6 +64,22 @@ export function NewPost({user_id, isLoggedIn}: LoginProps) {
                         margin="normal"
                         required
                     />
+                </div>
+
+                <div>
+                    <FormControl fullWidth>
+                        <InputLabel id="category-label">Category</InputLabel>
+                        <Select
+                        labelId="category-label"
+                        id="category-select"
+                        value={category_id}
+                        label="Category"
+                        onChange={(e) => setCategoryId(e.target.value)}>
+                            {
+                                categories.map((category_details) => (<MenuItem value={ category_details['id'] }>{ category_details['name'] }</MenuItem>))
+                            }
+                        </Select>
+                    </FormControl>
                 </div>
 
                 <div>
