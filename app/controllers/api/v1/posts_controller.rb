@@ -52,7 +52,7 @@ class Api::V1::PostsController < ApplicationController
 
   #search /posts/search?q=query
   def search
-    @posts = Post.joins(:category).where("name = ?", "#{params[:q]}").order(created_at: :desc);
+    @posts = Post.select("posts.*, users.username").joins(:category, :user).where("name = ?", "#{params[:q]}").order(created_at: :desc);
     render json: @posts
   end
 

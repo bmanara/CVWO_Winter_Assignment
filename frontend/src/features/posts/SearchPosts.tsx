@@ -15,6 +15,7 @@ function SearchPosts() {
         async function loadPosts() {
             try {
                 const data = await searchPosts(query);
+                console.log(data);
                 setPosts(data);
             } catch (e) {
                 setError("An error occurred with posts.");
