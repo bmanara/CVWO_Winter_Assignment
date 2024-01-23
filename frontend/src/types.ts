@@ -14,8 +14,8 @@ export interface PostDetailsProps {
 }
 
 export interface UserProps {
-    id: number;
-    username: string;
+    id?: number;
+    username?: string;
     password_digest?: string;
     created_at?: string;
     updated_at?: string;
@@ -37,4 +37,10 @@ export interface CommentProps {
     body: string;
     post_id?: string;
     user_id: string;
+}
+
+export interface DeleteProps {
+    user_id: number;
+    setUser: (user: UserProps) => void;
+    setIsLoggedIn: (isLoggedIn: boolean) => void;
 }

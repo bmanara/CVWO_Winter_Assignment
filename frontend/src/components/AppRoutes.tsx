@@ -23,7 +23,7 @@ function AppRoutes({ user, setUser, isLoggedIn, setIsLoggedIn}: StateProps) {
             <Route path="posts/:id" element={<PostDetails user_id={user.id} isLoggedIn={isLoggedIn} />} />
             <Route path="/login" element={<Login setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>}/>
             <Route path="/signup" element={<Signup setUser={setUser} setIsLoggedIn={setIsLoggedIn} />}/>
-            <Route path="/user/:id" element={<UserDetails user_id={user.id} isLoggedIn={isLoggedIn} />}/>
+            <Route path="/user/:id" element={<UserDetails user_id={user.id} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />}/>
         </Routes>
     );
 }

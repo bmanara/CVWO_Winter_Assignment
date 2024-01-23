@@ -3,13 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { fetchUser, deleteUser } from "../../services/userService";
 
-import { LoginProps, UserProps } from"../../types";
+import { DeleteProps, UserProps } from"../../types";
 
 import { Button } from '@mui/material';
 
-export function UserDetails({user_id, isLoggedIn}: LoginProps) {
+export function UserDetails({user_id, setUser, setIsLoggedIn}: DeleteProps) {
     const { id } = useParams();
-    const [user, setUser] = useState<null | {user: UserProps}>(null);
+    const [userDetails, setUserDetails] = useState<null | {user: UserProps}>(null);
     const [, setError] = useState("");
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -24,7 +24,7 @@ export function UserDetails({user_id, isLoggedIn}: LoginProps) {
         const fetchCurrentUser = async () => {
             try {
                 const data = await fetchUser(Number(id));
-                setUser(data);
+                setUserDetails(data);
                 console.log("Running");
                 console.log(data);
             } catch (e) {
@@ -37,16 +37,22 @@ export function UserDetails({user_id, isLoggedIn}: LoginProps) {
         fetchCurrentUser();
     }, [id]);
 
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        setUser({});
+    }
+
     const handleDeleteUser = async () => {
         try {
             await deleteUser(Number(id));
+            handleLogout();
             navigate(`/`)
         } catch (e) {
             console.error("Failed to delete user.", e);
         }
     }
 
-    if (loading || !user) {
+    if (loading || !userDetails) {
         return (
             <h2>Loading</h2>
         );
@@ -54,7 +60,7 @@ export function UserDetails({user_id, isLoggedIn}: LoginProps) {
 
     return (
         <div>
-            <h2>{ user['user']['username'] }</h2>
+            <h2>{ userDetails['user']['username'] }</h2>
             <Button id="delete-btn" size="small" onClick={handleDeleteUser}>Delete Account</Button>
         </div>
     )
