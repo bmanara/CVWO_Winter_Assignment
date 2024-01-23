@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
-import { fetchUser } from "../../services/userService";
+import { fetchUser, deleteUser } from "../../services/userService";
 
 import { LoginProps, UserProps } from"../../types";
 
@@ -12,6 +12,7 @@ export function UserDetails({user_id, isLoggedIn}: LoginProps) {
     const [user, setUser] = useState<null | {user: UserProps}>(null);
     const [, setError] = useState("");
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     if (user_id != Number(id)) {
         return (
@@ -36,6 +37,15 @@ export function UserDetails({user_id, isLoggedIn}: LoginProps) {
         fetchCurrentUser();
     }, [id]);
 
+    const handleDeleteUser = async () => {
+        try {
+            await deleteUser(Number(id));
+            navigate(`/`)
+        } catch (e) {
+            console.error("Failed to delete user.", e);
+        }
+    }
+
     if (loading || !user) {
         return (
             <h2>Loading</h2>
@@ -45,7 +55,7 @@ export function UserDetails({user_id, isLoggedIn}: LoginProps) {
     return (
         <div>
             <h2>{ user['user']['username'] }</h2>
-
+            <Button id="delete-btn" size="small" onClick={handleDeleteUser}>Delete Account</Button>
         </div>
     )
 }

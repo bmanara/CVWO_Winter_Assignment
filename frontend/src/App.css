@@ -80,3 +80,9 @@ pre {
   margin: 0 1em; 
 }
 
+/* UserDetails CSS */
+#delete-btn {
+  color: white;
+  background-color: red;
+  padding: 0.5em;
+}
