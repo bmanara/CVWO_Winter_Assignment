@@ -12,6 +12,11 @@
 Post.destroy_all
 Category.destroy_all
 
+User.create(
+  username: "guestUser",
+  password: "12345"
+)
+
 # Create 20 posts by using 'faker' gem. (Testing purposes)
 20.times do
   Post.create(

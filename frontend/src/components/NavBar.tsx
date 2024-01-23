@@ -41,7 +41,7 @@ function NavBar({user, setUser, isLoggedIn, setIsLoggedIn}: StateProps) {
     return (
         <nav>
             {isLoggedIn ? <div>
-                              <p>Welcome back, <Link to="/">{user.username}</Link></p>
+                              <p>Welcome back, <Link to={`user/${user.id}`}>{user.username}</Link></p>
                           </div>
                         : <Button component={Link} to="/signup">Sign Up</Button>
             }

@@ -14,8 +14,8 @@ export interface PostDetailsProps {
 }
 
 export interface UserProps {
-    id?: number;
-    username?: string;
+    id: number;
+    username: string;
     password_digest?: string;
     created_at?: string;
     updated_at?: string;

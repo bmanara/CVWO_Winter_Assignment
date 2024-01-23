@@ -3,14 +3,16 @@
 
 ## Getting Started 
 1. You require the following prerequisites
-- Ruby 3.2.2
-- npm 10.2.3
-- PostgreSQL 14.10
-- Bundler 2.4.22 (Do not need this specific version)
-- Yarn 1.22.21
+    - Ruby 3.2.2
+    - npm 10.2.3
+    - PostgreSQL 14.10
+    - Bundler 2.4.22 (Do not need this specific version)
+    - Yarn 1.22.21
 
 2. Clone the repo
-`$ git clone git@github.com:bmanara/CVWO_Winter_Assignment.git`
+```
+$ git clone git@github.com:bmanara/CVWO_Winter_Assignment.git
+```
 
 
 This README would normally document whatever steps are necessary to get the

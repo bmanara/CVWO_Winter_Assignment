@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :posts
       resources :categories, only: [:index]
-      resources :users, only: [:create, :show, :index] do
+      resources :users, only: [:create, :show, :index, :destroy] do
         resources :items, only: [:create, :show, :index, :destroy]
       end
       resources :comments, only: [:create, :destroy]

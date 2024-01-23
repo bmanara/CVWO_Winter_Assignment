@@ -12,7 +12,6 @@ function PostDetails({user_id, isLoggedIn}: LoginProps) {
     const [post, setPost] = useState<null | PostDetailsProps>(null);
     const [newComment, setNewComment] = useState("");
     const [comments, setComments] = useState([]);
-    // TODO: Don't leave it as any!
     const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(true);
     const [, setError] = useState<null | string>(null);
