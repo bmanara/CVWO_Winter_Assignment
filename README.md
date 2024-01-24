@@ -7,33 +7,33 @@
     - npm 10.2.3
     - PostgreSQL 14.10
     - Bundler 2.4.22 (Do not need this specific version)
-    - Yarn 1.22.21
 
 2. Clone the repo
 ```
 $ git clone git@github.com:bmanara/CVWO_Winter_Assignment.git
 ```
 
+3. Setup
+```
+$ bundle install
+```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+4. Setup the database
+```
+$ rake db:migrate
+```
 
-Things you may want to cover:
+5. Start the server
+```
+$ rails s
+```
 
-* Ruby version
+6. Start the frontend
+```
+$ cd frontend
+$ npm run dev
+```
 
-* System dependencies
+7. Open the web application from link 'localhost:5173'
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
