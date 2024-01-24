@@ -6,7 +6,7 @@
     - Ruby 3.2.2
     - npm 10.2.3
     - PostgreSQL 14.10
-    - Bundler 2.4.22 (Do not need this specific version)
+    - Bundler 2.4.22 
 
 2. Clone the repo
 ```
@@ -20,8 +20,13 @@ $ bundle install
 
 4. Setup the database
 ```
-$ rake db:migrate
+$ rails db:create
+$ rails db:migrate
+$ rails db:seed
 ```
+Note: You may need to grant yourself permissions to create databases.
+This link may be able to help with the setup. 
+https://stackoverflow.com/questions/28116927/rails-postgres-permission-denied-to-create-database-on-rake-dbcreateall
 
 5. Start the server
 ```
@@ -31,6 +36,7 @@ $ rails s
 6. Start the frontend
 ```
 $ cd frontend
+$ npm install
 $ npm run dev
 ```
 

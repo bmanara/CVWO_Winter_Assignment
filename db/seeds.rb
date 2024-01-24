@@ -18,6 +18,7 @@ User.create(
 )
 
 # Create 20 posts by using 'faker' gem. (Testing purposes)
+# Might not work, from testing
 20.times do
   Post.create(
     title: Faker::Lorem.sentence(word_count: 3),

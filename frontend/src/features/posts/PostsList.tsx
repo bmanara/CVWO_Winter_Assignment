@@ -29,9 +29,13 @@ function PostsList() {
     }
     
 
-    if (loading || !posts.length ) {
+    if (loading) {
         return (
             <h2>Loading...</h2>
+        )
+    } else if (!posts.length) {
+        return (
+            <h2>No posts currently. Be the first to post something!</h2>
         )
     }
 
