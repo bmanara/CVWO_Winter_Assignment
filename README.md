@@ -13,7 +13,7 @@
 $ git clone git@github.com:bmanara/CVWO_Winter_Assignment.git
 ```
 
-3. Setup
+3. Installing dependencies
 ```
 $ bundle install
 ```
